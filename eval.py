@@ -39,26 +39,6 @@ MAX_FRAMES = 21  # context window of the diffusion model
 CFG, CFG_MIN, NUM_STEPS, CAMERA_SCALE, SEED = 2.0, 1.2, 50, 2.0, 2026
 
 
-def load_gt_cameras(gt_pose_dir: str, scene_id: str, order: list[int]):
-    """RealEstate10K GT cameras for the frames of an eval split (rebuttal
-    experiment): relative to frame 0, trajectory scaled so that max ||t|| = 1."""
-    num_frames = len(order)
-    with open(os.path.join(gt_pose_dir, "camera", f"{scene_id}.txt")) as f:
-        lines = f.readlines()[1:]
-    c2w = np.zeros((num_frames, 4, 4), dtype=np.float64)
-    K = np.zeros((num_frames, 3, 3), dtype=np.float32)
-    for i, idx in enumerate(order):
-        v = np.array(lines[idx].split(), dtype=np.float64)
-        w2c = np.eye(4)
-        w2c[:3] = v[7:19].reshape(3, 4)
-        c2w[i] = np.linalg.inv(w2c)
-        K[i] = np.array([[v[1], 0, v[3]], [0, v[2], v[4]], [0, 0, 1]], dtype=np.float32)
-    c2w = np.einsum("ij,njk->nik", np.linalg.inv(c2w[0]), c2w)
-    max_t = float(np.linalg.norm(c2w[:, :3, 3], axis=-1).max())
-    c2w[:, :3, 3] *= 1.0 / max_t if max_t > 1e-8 else 1.0
-    return torch.from_numpy(c2w.astype(np.float32)), torch.from_numpy(K)
-
-
 def save_images(images: torch.Tensor, indices: list[int], out_dir: str, prefix: str):
     """images: [N, 3, H, W] in [0, 1]."""
     os.makedirs(out_dir, exist_ok=True)
@@ -68,12 +48,11 @@ def save_images(images: torch.Tensor, indices: list[int], out_dir: str, prefix: 
 
 
 class Evaluator:
-    def __init__(self, model_path: str, gt_pose_dir: str | None = None):
+    def __init__(self, model_path: str):
         seva = load_seva(model_path, DEVICE)
         self.use_render = seva.params.in_channels == 15
         self.use_tokens = seva.params.token_dim is not None
         self.model = SGMWrapper(seva)
-        self.gt_pose_dir = gt_pose_dir
 
         self.encoder = SceneEncoder(DEVICE)
         self.denoiser = DiscreteDenoiser(DDPMDiscretization(), num_idx=1000, device=DEVICE)
@@ -90,9 +69,6 @@ class Evaluator:
         data = self.encoder(images_wm, images, len(ref_ids), align_median_scale_shift)
         data["gt_images"] = images.to(DEVICE)
         data["num_refs"] = len(ref_ids)
-        if self.gt_pose_dir is not None:
-            c2w, K = load_gt_cameras(self.gt_pose_dir, os.path.basename(scene), ref_ids + tgt_ids)
-            data["c2w"], data["K"] = c2w.to(DEVICE), K.to(DEVICE)
         return data
 
     def generate(self, data: dict, frames: list[int]):
@@ -174,7 +150,6 @@ def main(
     split_num: int,
     model_path: str,
     output_dir: str = "eval_results",
-    gt_pose_dir: str | None = None,
 ):
     """
     Args:
@@ -183,8 +158,6 @@ def main(
         split_num: number of reference views of the split.
         model_path: SplatGuide weights (`.safetensors` or Lightning `.ckpt`), or SEVA `.safetensors`.
         output_dir: where images and metrics are written.
-        gt_pose_dir: RealEstate10K root with `camera/<scene>.txt`; if given, the WorldMirror
-            cameras are replaced by GT cameras.
     """
     scenes = [
         s for s in find_scenes(data_root)
@@ -196,7 +169,7 @@ def main(
     torch.use_deterministic_algorithms(True, warn_only=True)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    evaluator = Evaluator(model_path, gt_pose_dir)
+    evaluator = Evaluator(model_path)
     os.makedirs(output_dir, exist_ok=True)
 
     all_metrics = [

@@ -10,8 +10,7 @@
 # Usage: sbatch scripts/train.sh [extra train.py args, e.g. key=value overrides]
 set -euo pipefail
 cd "$(dirname "$0")/.."
-export HF_HOME=${HF_HOME:-/scratch/cs/gen3r/yejun/huggingface}
-PYTHON=${PYTHON:-/scratch/cs/gen3r/yejun/mamba_env/envs/hunyuanworld-mirror/bin/python}  # the single environment (see README)
+PYTHON=${PYTHON:-python}
 
 # Dataset roots are set in configs/splatguide.yaml (data.params.datasets).
 $PYTHON train.py --base configs/splatguide.yaml "$@" -n "${RUN_NAME:-splatguide}" \

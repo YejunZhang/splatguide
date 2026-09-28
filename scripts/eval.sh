@@ -10,22 +10,20 @@
 # MODEL may also be the SEVA .safetensors (baseline with WorldMirror poses).
 set -euo pipefail
 cd "$(dirname "$0")/.."
-export HF_HOME=${HF_HOME:-/scratch/cs/gen3r/yejun/huggingface}
-PYTHON=${PYTHON:-/scratch/cs/gen3r/yejun/mamba_env/envs/hunyuanworld-mirror/bin/python}  # the single environment (see README)
+PYTHON=${PYTHON:-python}
 
 MODEL=${MODEL:-checkpoints/splatguide.safetensors}
 OUT=${OUT:-eval_results/$(basename "${MODEL%.*}")}
-D=${DATA:-/scratch/cs/gen3r/yejun/dataset}   # raw benchmark images and split files
+D=${DATA:-data/benchmarks}   # <benchmark>/images/<scene>/..., <benchmark>/splits/<scene>/train_test_split_<N>.json
 
 run() {  # name data_root split_dir split_num
     "$PYTHON" eval.py --data_root "$2" --split_dir "$3" --split_num "$4" --model_path "$MODEL" --output_dir "$OUT/$1_$4view"
 }
 for N in 3 6 9; do
-    run re10k "$D/final_final_test/real10K_eval/images" "$D/final_final_test/real10K_eval/re10k_split" $N
-    run dl3dv "$D/final_final_test/yejun_dl3dv140" "$D/data_split/dl3dv140" $N
-    run mipnerf360 "$D/final_final_test/mipnerf360_zihan" "$D/data_split/mipnerf360" $N
+    run re10k "$D/re10k/images" "$D/re10k/splits" $N
+    run dl3dv "$D/dl3dv/images" "$D/dl3dv/splits" $N
+    run mipnerf360 "$D/mipnerf360/images" "$D/mipnerf360/splits" $N
 done
 for N in 3 6; do
-    run tnt "$D/tnt-viewcrafter" "$D/tnt-viewcrafter" $N
+    run tnt "$D/tnt/images" "$D/tnt/images" $N
 done
-# GT-pose variant (RealEstate10K only): add --gt_pose_dir "$D/final_final_test/real10K_eval"
