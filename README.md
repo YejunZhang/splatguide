@@ -4,39 +4,6 @@
 
 Code for **SplatGuide: Geometric Priors from 3D Gaussians for Pose-Free Novel View Synthesis**.
 
-A feed-forward reconstruction model (WorldMirror) turns the unposed input views into
-camera poses and a 3DGS scene. The scene conditions a multi-view diffusion model (SEVA) in two ways:
-
-- **Rendered images**: 3DGS renders of all reference and target views, VAE-encoded and
-  concatenated to the U-Net input (11 → 15 input channels, new weights zero-initialised).
-- **Reconstruction tokens**: per reference view, the camera token and the 4 register tokens
-  of WorldMirror's last layer (dim 2048), injected through an extra cross-attention
-  (`attn3`/`norm4`) that runs in parallel to SEVA's CLIP cross-attention.
-
-Only the diffusion U-Net is trained. WorldMirror, the VAE and CLIP are frozen and run on the
-fly, in training and in evaluation, directly on the raw images; nothing is precomputed or stored.
-
-## Layout
-
-```
-train.py                  training entry point (PyTorch Lightning)
-eval.py                   evaluation on raw benchmark scenes (PSNR / SSIM / LPIPS)
-configs/splatguide.yaml   model and training setting of the paper
-scripts/                  SLURM launchers (train, eval)
-recon/                    frozen scene encoder, shared by training and evaluation
-  worldmirror.py            SceneEncoder: two-stage WorldMirror -> cameras, tokens, 3DGS renders; VAE, CLIP
-  scenes.py                 raw datasets: scene discovery, image loading, view sampling, eval splits
-  align.py                  Stage-1 -> Stage-2 target pose alignment
-seva/                     SEVA U-Net with the SplatGuide changes, denoiser, sampler
-  model.py                  Seva U-Net, weight loading/init from SEVA, condition wrapper
-  modules/transformer.py    multi-view transformer with token cross-attention (attn3)
-  sampling.py               discrete denoiser (training + sampling), multiview CFG, Euler sampler
-  inference.py              one sampling pass (do_sample)
-  geometry.py               Plücker rays, camera normalisation
-training/                 Lightning engine (conditions -> SEVA-weighted loss), raw-image data module
-third_party/HunyuanWorld-Mirror   WorldMirror, git submodule pinned to ca63f738
-```
-
 ## Setup
 
 One environment serves training and evaluation (WorldMirror needs gsplat >= 1.5 and NumPy < 2):
