@@ -1,6 +1,7 @@
 # SplatGuide
 
 [![arXiv](https://img.shields.io/badge/arXiv-2608.16863-b31b1b.svg)](https://arxiv.org/abs/2608.16863)
+[![HF](https://img.shields.io/badge/%F0%9F%A4%97-Weights-yellow)](https://huggingface.co/yejunzhang/splatguide)
 
 Code for **SplatGuide: Geometric Priors from 3D Gaussians for Pose-Free Novel View Synthesis**.
 
@@ -13,6 +14,7 @@ pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorc
 pip install gsplat==1.5.3 --index-url https://docs.gsplat.studio/whl/pt24cu124
 pip install -e .
 mkdir -p checkpoints && huggingface-cli download stabilityai/stable-virtual-camera modelv1.1.safetensors --local-dir checkpoints
+huggingface-cli download yejunzhang/splatguide splatguide.safetensors --local-dir checkpoints
 ```
 
 ## Data
@@ -31,7 +33,7 @@ python train.py --base configs/splatguide.yaml -n splatguide \
 
 ```bash
 python eval.py --data_root /path/to/re10k/images --split_dir /path/to/re10k/splits --split_num 3 \
-    --model_path /path/to/splatguide.safetensors --output_dir eval_results/re10k_3view
+    --model_path checkpoints/splatguide.safetensors --output_dir eval_results/re10k_3view
 ```
 
 ## Citation
