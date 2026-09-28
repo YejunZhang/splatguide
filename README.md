@@ -1,5 +1,7 @@
 # SplatGuide
 
+[![arXiv](https://img.shields.io/badge/arXiv-2608.16863-b31b1b.svg)](https://arxiv.org/abs/2608.16863)
+
 Code for **SplatGuide: Geometric Priors from 3D Gaussians for Pose-Free Novel View Synthesis**.
 
 A feed-forward reconstruction model (WorldMirror) turns the unposed input views into
@@ -118,6 +120,17 @@ As in SEVA, the cameras of a scene are normalised once (centred on the mean of t
 cameras, scaled so that the first reference is at distance 2) and shared by all groups.
 
 `--model_path` takes U-Net weights in `.safetensors` or a Lightning `.ckpt` from `train.py`.
+
+## Citation
+
+```bibtex
+@article{zhang2026splatguide,
+  title   = {SplatGuide: Geometric Priors from 3D Gaussians for Pose-Free Novel View Synthesis},
+  author  = {Zhang, Yejun and Wang, Zihan and Ji, Xu and Wang, Yihao and Hou, Yuxin and Fang, Junyuan and Kilpel{\"a}inen, Juho-Matti and Solin, Arno and Rezazadegan Tavakoli, Hamed and Rahtu, Esa and Kannala, Juho},
+  journal = {arXiv preprint arXiv:2608.16863},
+  year    = {2026}
+}
+```
 
 ## License
 
