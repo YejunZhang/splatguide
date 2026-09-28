@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+logs/
+checkpoints/
+data/
+eval_results/
+job_output_*.txt
+wandb/

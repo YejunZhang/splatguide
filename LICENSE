@@ -1,0 +1,124 @@
+Stability AI Non-Commercial License Agreement
+Last Updated: February 20, 2025
+
+I. INTRODUCTION
+
+This Stability AI Non-Commercial License Agreement (the “Agreement”) applies to any individual person or entity
+(“You”, “Your” or “Licensee”) that uses or distributes any portion or element of the Stability AI Materials or
+Derivative Works thereof for any Research & Non-Commercial use. Capitalized terms not otherwise defined herein
+are defined in Section IV below.
+
+This Agreement is intended to allow research and non-commercial uses of the Model free of charge.
+
+By clicking “I Accept” or by using or distributing or using any portion or element of the Stability Materials
+or Derivative Works, You agree that You have read, understood and are bound by the terms of this Agreement.
+
+If You are acting on behalf of a company, organization, or other entity, then “You” includes you and that entity,
+and You agree that You:
+(i) are an authorized representative of such entity with the authority to bind such entity to this Agreement, and
+(ii) You agree to the terms of this Agreement on that entity’s behalf.
+
+---
+
+II. RESEARCH & NON-COMMERCIAL USE LICENSE
+
+Subject to the terms of this Agreement, Stability AI grants You a non-exclusive, worldwide, non-transferable,
+non-sublicensable, revocable, and royalty-free limited license under Stability AI’s intellectual property or other
+rights owned by Stability AI embodied in the Stability AI Materials to use, reproduce, distribute, and create
+Derivative Works of, and make modifications to, the Stability AI Materials for any Research or Non-Commercial Purpose.
+
+- **“Research Purpose”** means academic or scientific advancement, and in each case, is not primarily intended
+  for commercial advantage or monetary compensation to You or others.
+- **“Non-Commercial Purpose”** means any purpose other than a Research Purpose that is not primarily intended
+  for commercial advantage or monetary compensation to You or others, such as personal use (i.e., hobbyist)
+  or evaluation and testing.
+
+---
+
+III. GENERAL TERMS
+
+Your Research or Non-Commercial license under this Agreement is subject to the following terms.
+
+### a. Distribution & Attribution
+If You distribute or make available the Stability AI Materials or a Derivative Work to a third party, or a product
+or service that uses any portion of them, You shall:
+1. Provide a copy of this Agreement to that third party.
+2. Retain the following attribution notice within a **"Notice"** text file distributed as a part of such copies:
+
+   **"This Stability AI Model is licensed under the Stability AI Non-Commercial License,
+   Copyright © Stability AI Ltd. All Rights Reserved."**
+
+3. Prominently display **“Powered by Stability AI”** on a related website, user interface, blog post,
+   about page, or product documentation.
+4. If You create a Derivative Work, You may add your own attribution notice(s) to the **"Notice"** text file
+   included with that Derivative Work, provided that You clearly indicate which attributions apply to the
+   Stability AI Materials and state in the **"Notice"** text file that You changed the Stability AI Materials
+   and how it was modified.
+
+### b. Use Restrictions
+Your use of the Stability AI Materials and Derivative Works, including any output or results of the Stability
+AI Materials or Derivative Works, must comply with applicable laws and regulations (including Trade Control
+Laws and equivalent regulations) and adhere to the Documentation and Stability AI’s AUP, which is hereby
+incorporated by reference.
+
+Furthermore, You will not use the Stability AI Materials or Derivative Works, or any output or results of the
+Stability AI Materials or Derivative Works, to create or improve any foundational generative AI model
+(excluding the Model or Derivative Works).
+
+### c. Intellectual Property
+
+#### (i) Trademark License
+No trademark licenses are granted under this Agreement, and in connection with the Stability AI Materials
+or Derivative Works, You may not use any name or mark owned by or associated with Stability AI or any of
+its Affiliates, except as required under Section IV(a) herein.
+
+#### (ii) Ownership of Derivative Works
+As between You and Stability AI, You are the owner of Derivative Works You create, subject to Stability AI’s
+ownership of the Stability AI Materials and any Derivative Works made by or for Stability AI.
+
+#### (iii) Ownership of Outputs
+As between You and Stability AI, You own any outputs generated from the Model or Derivative Works to the extent
+permitted by applicable law.
+
+#### (iv) Disputes
+If You or Your Affiliate(s) institute litigation or other proceedings against Stability AI (including a
+cross-claim or counterclaim in a lawsuit) alleging that the Stability AI Materials, Derivative Works, or
+associated outputs or results, or any portion of any of the foregoing, constitutes infringement of intellectual
+property or other rights owned or licensable by You, then any licenses granted to You under this Agreement
+shall terminate as of the date such litigation or claim is filed or instituted.
+
+You will indemnify and hold harmless Stability AI from and against any claim by any third party arising out
+of or related to Your use or distribution of the Stability AI Materials or Derivative Works in violation of
+this Agreement.
+
+#### (v) Feedback
+From time to time, You may provide Stability AI with verbal and/or written suggestions, comments, or other
+feedback related to Stability AI’s existing or prospective technology, products, or services (collectively,
+“Feedback”).
+
+You are not obligated to provide Stability AI with Feedback, but to the extent that You do, You hereby grant
+Stability AI a **perpetual, irrevocable, royalty-free, fully-paid, sub-licensable, transferable, non-exclusive,
+worldwide right and license** to exploit the Feedback in any manner without restriction.
+
+Your Feedback is provided **“AS IS”** and You make no warranties whatsoever about any Feedback.
+
+---
+
+IV. DEFINITIONS
+
+- **“Affiliate(s)”** means any entity that directly or indirectly controls, is controlled by, or is under common
+  control with the subject entity. For purposes of this definition, “control” means direct or indirect ownership
+  or control of more than 50% of the voting interests of the subject entity.
+- **“AUP”** means the Stability AI Acceptable Use Policy available at https://stability.ai/use-policy, as may
+  be updated from time to time.
+- **"Derivative Work(s)"** means:
+  (a) Any derivative work of the Stability AI Materials as recognized by U.S. copyright laws.
+  (b) Any modifications to a Model, and any other model created which is based on or derived from the Model or
+      the Model’s output, including **fine-tune** and **low-rank adaptation** models derived from a Model or
+      a Model’s output, but does not include the output of any Model.
+- **“Model”** means Stability AI’s Stable Virtual Camera model.
+- **"Stability AI" or "we"** means Stability AI Ltd. and its Affiliates.
+- **"Software"** means Stability AI’s proprietary software made available under this Agreement now or in the future.
+- **“Stability AI Materials”** means, collectively, Stability’s proprietary Model, Software, and Documentation
+  (and any portion or combination thereof) made available under this Agreement.
+- **“Trade Control Laws”** means any applicable U.S. and non-U.S. export control and trade sanctions laws and regulations.

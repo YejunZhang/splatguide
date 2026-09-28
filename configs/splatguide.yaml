@@ -1,0 +1,35 @@
+# SplatGuide: SEVA + rendered 3DGS latents (concat) + WorldMirror camera/register tokens (attn3).
+# Paper setting: 8 GPUs x grad accumulation 4, one 21-frame sample per GPU = effective batch 32.
+model:
+  base_learning_rate: 1.0e-6  # x #GPUs x grad accumulation
+  warmup_steps: 1000  # linear warm-up from 1e-6 x lr
+  network:  # seva.model.SevaParams
+    in_channels: 15  # 4 noisy latent + 1 mask + 6 plucker + 4 rendered latent
+    token_dim: 2048  # WorldMirror camera + register tokens (attn3)
+    ckpt_path: checkpoints/modelv1.1.safetensors  # SEVA v1.1 (or SplatGuide weights)
+    use_checkpoint: true  # gradient checkpointing
+
+data:
+  datasets:  # raw images; 21 views per sample are drawn on the fly (see recon/scenes.py)
+    - {name: dl3dv, root: data/DL3DV-10K, repeat: 3}  # the paper data had 3 samples per DL3DV scene
+    - {name: re10k, root: data/re10k/train}
+  num_workers: 4
+
+lightning:
+  modelcheckpoint:
+    filename: "{epoch:03}"
+    every_n_train_steps: 50  # overwrites epoch=XXX.ckpt, i.e. keeps the latest step of each epoch
+    save_top_k: -1
+    save_last: link
+
+  trainer:
+    accelerator: gpu
+    devices: 8
+    strategy: auto  # plain DDP on multiple GPUs
+    benchmark: true
+    num_sanity_val_steps: 0
+    accumulate_grad_batches: 4
+    max_epochs: 1000
+    precision: 32
+    gradient_clip_val: 1.0
+    log_every_n_steps: 100
