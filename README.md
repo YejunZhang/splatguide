@@ -21,6 +21,7 @@ huggingface-cli download yejunzhang/splatguide splatguide.safetensors --local-di
 
 - Training: DL3DV (`<root>/<category>/<scene>/{transforms.json, images_4/}`) and RealEstate10K (`<root>/<scene>/*.png`).
 - Evaluation: `<root>/<scene>/images/` with `<split_dir>/<scene>/train_test_split_<N>.json`.
+- Splits: RE10K, DL3DV (20-scene Long-LRM subset of `dl3dv140`) and Mip-NeRF 360 use SEVA's [`benchmark.zip`](https://github.com/Stability-AI/stable-virtual-camera/releases/tag/benchmark). Tanks and Temples 3-/6-view splits for SEVA's `tnt-viewcrafter` scenes are in [`splits/tnt-viewcrafter`](splits/tnt-viewcrafter).
 
 ## Training
 
